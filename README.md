@@ -1,25 +1,38 @@
 # Laxmi Vanam Farmhouse
 
-Static website for [Laxmi Vanam Farmhouse](https://maps.app.goo.gl/6YfbZ5Ffax4gSoof6), a farmstay in Bhuvanagiri, Telangana.
+Static website for [Laxmi Vanam Farmhouse](https://laxmivanam.in), a farmstay in Bhuvanagiri, Telangana.
+
+This is my business website, which I manage for Laxmi Vanam Farmhouse.
 
 ## Local preview
 
-Open `index.html` in a browser, or from this folder:
+From the repository folder, start a local web server:
 
 ```bash
-python3 -m http.server 5173
+python3 -m http.server 8000
 ```
 
-Then visit http://localhost:5173
+Open http://localhost:8000 in your browser. Stop the server with `Ctrl+C`.
 
 ## GitHub Pages
 
-This repo is set up for Pages from the `main` branch root (`index.html`).
+The site deploys through the GitHub Actions workflow in `.github/workflows/pages.yml` whenever code is pushed to `main`.
 
-1. Push the repo to GitHub.
-2. In the repository: **Settings → Pages → Deploy from a branch → `main` / `/ (root)`**.
-3. After a minute, the site is at `https://<your-username>.github.io/laxmi-vanam-farmhouse/`.
+In the repository settings, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. The custom domain is `laxmivanam.in`; the root-level `CNAME` file records this domain. DNS for the domain must point to GitHub Pages.
 
-## Optional contact
+## Enquiries and contact
 
-Set `CONTACT_EMAIL` in `js/main.js` so enquiries go to your inbox instead of an empty To field.
+The enquiry form sends booking details to `laxmifarmstays@gmail.com` through FormSubmit and opens WhatsApp with a prepared message to the primary number. Guests must review and send the WhatsApp message themselves. FormSubmit may require the recipient to confirm the address before email delivery is activated.
+
+The contact section lists the primary phone as +91 70325 20408 and the alternate mobile as +91 70750 50408.
+
+## Photos and branding
+
+- The homepage cover image is `src/Cover.PNG`.
+- The header logo is `src/logo1.PNG`; the browser-tab favicon is `src/favicon.PNG`.
+- The gallery uses optimized images named `src/gallery-*.jpg`. Add or replace gallery images and update their paths and descriptions in `index.html`.
+- Keep filenames and letter casing consistent because GitHub Pages runs on a case-sensitive filesystem.
+
+## Not-found page
+
+`404.html` is served by GitHub Pages when a visitor opens a URL that does not exist.
