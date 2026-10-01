@@ -112,8 +112,8 @@ a {
 }
 
 .logo-image {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3rem;
+  height: 2rem;
   flex: 0 0 auto;
   object-fit: contain;
   mix-blend-mode: multiply;
