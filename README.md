@@ -29,7 +29,7 @@ The contact section lists the primary phone as +91 70325 20408 and the alternate
 ## Photos and branding
 
 - The homepage cover image is `src/Cover.PNG`.
-- The header logo is `src/logo1.PNG`; the browser-tab favicon is `src/favicon.PNG`.
+- The header logo is `src/logo1.PNG`; `src/favicon-icon.png` is the square browser-tab icon generated from `src/favicon.PNG`.
 - The gallery uses optimized images named `src/gallery-*.jpg`. Add or replace gallery images and update their paths and descriptions in `index.html`.
 - Keep filenames and letter casing consistent because GitHub Pages runs on a case-sensitive filesystem.
 
