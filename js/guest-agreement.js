@@ -4,7 +4,7 @@ const pdfInput = document.querySelector("#agreement-pdf");
 let controlsToRestore = [];
 
 if (new URLSearchParams(window.location.search).get("agreement") === "submitted") {
-  agreementStatus.textContent = "Agreement submitted to farmhouse management. The signed PDF is attached to the email.";
+  agreementStatus.textContent = "Thank you! Your signed agreement has been submitted to farmhouse management. Enjoy your stay with us!";
   window.history.replaceState(null, "", window.location.pathname);
 }
 
@@ -134,7 +134,7 @@ agreementForm.addEventListener("submit", async (event) => {
     document.querySelector("#agreement-next").value = `${window.location.origin}${window.location.pathname}?agreement=submitted`;
     document.querySelector("#agreement-email-message").value = "The signed guest agreement is attached as a PDF.";
 
-    agreementStatus.textContent = "Sending the signed PDF. FormSubmit will return a confirmation or an error.";
+    agreementStatus.textContent = "Submitting your signed agreement...";
     const includedFields = new Set(["_subject", "_next", "_template", "_captcha", "message", "attachment"]);
     controlsToRestore = [...agreementForm.elements].map((control) => [control, control.disabled]);
     controlsToRestore.forEach(([control]) => {
