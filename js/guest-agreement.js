@@ -1,9 +1,12 @@
 const agreementForm = document.querySelector("#agreement-form");
 const agreementStatus = document.querySelector("#agreement-status");
-const agreementFrame = document.querySelector("#agreement-submit-frame");
 const pdfInput = document.querySelector("#agreement-pdf");
-let submissionPending = false;
 let controlsToRestore = [];
+
+if (new URLSearchParams(window.location.search).get("agreement") === "submitted") {
+  agreementStatus.textContent = "Agreement submitted to farmhouse management. The signed PDF is attached to the email.";
+  window.history.replaceState(null, "", window.location.pathname);
+}
 
 function restoreFormControls() {
   controlsToRestore.forEach(([control, wasDisabled]) => {
@@ -110,16 +113,6 @@ function getPdfBlob(definition) {
   });
 }
 
-agreementFrame.addEventListener("load", () => {
-  if (!submissionPending) return;
-
-  submissionPending = false;
-  agreementStatus.textContent = "Agreement submitted to farmhouse management. The signed PDF is attached to the email.";
-  agreementForm.reset();
-  restoreFormControls();
-  agreementForm.querySelector('button[type="submit"]').disabled = false;
-});
-
 agreementForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!agreementForm.reportValidity()) return;
@@ -138,18 +131,17 @@ agreementForm.addEventListener("submit", async (event) => {
     transfer.items.add(new File([pdfBlob], filename, { type: "application/pdf" }));
     pdfInput.files = transfer.files;
     document.querySelector("#agreement-subject").value = `Signed guest agreement — ${data.guest_name} (${data.checkin_date})`;
+    document.querySelector("#agreement-next").value = `${window.location.origin}${window.location.pathname}?agreement=submitted`;
     document.querySelector("#agreement-email-message").value = "The signed guest agreement is attached as a PDF.";
 
-    agreementStatus.textContent = "Sending the signed PDF to farmhouse management...";
-    const includedFields = new Set(["_subject", "_template", "_captcha", "message", "attachment"]);
+    agreementStatus.textContent = "Sending the signed PDF. FormSubmit will return a confirmation or an error.";
+    const includedFields = new Set(["_subject", "_next", "_template", "_captcha", "message", "attachment"]);
     controlsToRestore = [...agreementForm.elements].map((control) => [control, control.disabled]);
     controlsToRestore.forEach(([control]) => {
       if (!includedFields.has(control.name)) control.disabled = true;
     });
-    submissionPending = true;
     agreementForm.submit();
   } catch (error) {
-    submissionPending = false;
     restoreFormControls();
     agreementStatus.textContent = "We could not create or email your signed PDF. Please try again or call +91 70325 20408.";
     submitButton.disabled = false;

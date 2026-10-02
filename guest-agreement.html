@@ -185,9 +185,9 @@
             action="https://formsubmit.co/laxmifarmstays@gmail.com"
             method="POST"
             enctype="multipart/form-data"
-            target="agreement-submit-frame"
           >
             <input type="hidden" name="_subject" id="agreement-subject" />
+            <input type="hidden" name="_next" id="agreement-next" />
             <input type="hidden" name="_template" value="basic" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="message" id="agreement-email-message" />
@@ -205,7 +205,6 @@
             <button class="btn" type="submit">Submit signed agreement</button>
             <p class="form-status" id="agreement-status" role="status" aria-live="polite"></p>
           </form>
-          <iframe name="agreement-submit-frame" id="agreement-submit-frame" title="Agreement submission" hidden></iframe>
         </section>
       </div>
     </main>
