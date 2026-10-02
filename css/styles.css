@@ -540,6 +540,31 @@ textarea {
   line-height: 1.35;
 }
 
+.rule-acknowledgement {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.rule-acknowledgement input {
+  appearance: auto;
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  accent-color: var(--leaf);
+}
+
+.rule-acknowledgement strong {
+  font-weight: 600;
+}
+
 .rule p {
   margin: 0;
   color: var(--muted);

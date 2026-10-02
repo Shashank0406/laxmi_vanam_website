@@ -3,6 +3,14 @@ const agreementStatus = document.querySelector("#agreement-status");
 const agreementFrame = document.querySelector("#agreement-submit-frame");
 const pdfInput = document.querySelector("#agreement-pdf");
 let submissionPending = false;
+let controlsToRestore = [];
+
+function restoreFormControls() {
+  controlsToRestore.forEach(([control, wasDisabled]) => {
+    control.disabled = wasDisabled;
+  });
+  controlsToRestore = [];
+}
 
 function loadScript(src) {
   return new Promise((resolve, reject) => {
@@ -48,19 +56,23 @@ function createAgreementPdf(data, signedAt) {
     content.push({ text: paragraph.textContent.trim(), style: "bodyText" });
   });
 
+  const confirmedRules = [...document.querySelectorAll(".rule-acknowledgement input:checked")].map((input) => ({
+    text: `[CONFIRMED] ${input.closest("label").querySelector("strong").textContent.trim()}`,
+    style: "detail",
+  }));
+
   content.push(
     { text: "Signed Guest Acknowledgement", style: "sectionHeading", margin: [0, 14, 0, 5] },
     { text: "I confirm that I have read, understood, and agree to follow all farmhouse rules during my stay at Laxmi Vanam.", style: "bodyText" },
+    ...confirmedRules,
     { text: `Guest name: ${data.guest_name}`, style: "detail" },
     { text: `Mobile number: ${data.mobile}`, style: "detail" },
-    { text: `Booking/reference: ${data.booking_reference || "Not provided"}`, style: "detail" },
     { text: `Booking date: ${data.booking_date}`, style: "detail" },
     { text: `Check-in: ${data.checkin_date}`, style: "detail" },
     { text: `Check-out: ${data.checkout_date}`, style: "detail" },
     { text: `Declared guests: ${data.declared_guests}`, style: "detail" },
     { text: `Electronic signature: ${data.guest_signature}`, style: "signature" },
     { text: `Signed on: ${signedAt}`, style: "detail" },
-    { text: "Guest confirmed: rules read and accepted; declared occupancy confirmed; payment, damages, deposit, charges, and serious-violation terms understood.", style: "bodyText", margin: [0, 5, 0, 0] },
   );
 
   return {
@@ -104,6 +116,7 @@ agreementFrame.addEventListener("load", () => {
   submissionPending = false;
   agreementStatus.textContent = "Agreement submitted to farmhouse management. The signed PDF is attached to the email.";
   agreementForm.reset();
+  restoreFormControls();
   agreementForm.querySelector('button[type="submit"]').disabled = false;
 });
 
@@ -125,12 +138,19 @@ agreementForm.addEventListener("submit", async (event) => {
     transfer.items.add(new File([pdfBlob], filename, { type: "application/pdf" }));
     pdfInput.files = transfer.files;
     document.querySelector("#agreement-subject").value = `Signed guest agreement — ${data.guest_name} (${data.checkin_date})`;
-    document.querySelector("#agreement-submitted-at").value = signedAt;
+    document.querySelector("#agreement-email-message").value = "The signed guest agreement is attached as a PDF.";
 
     agreementStatus.textContent = "Sending the signed PDF to farmhouse management...";
+    const includedFields = new Set(["_subject", "_template", "_captcha", "message", "attachment"]);
+    controlsToRestore = [...agreementForm.elements].map((control) => [control, control.disabled]);
+    controlsToRestore.forEach(([control]) => {
+      if (!includedFields.has(control.name)) control.disabled = true;
+    });
     submissionPending = true;
     agreementForm.submit();
   } catch (error) {
+    submissionPending = false;
+    restoreFormControls();
     agreementStatus.textContent = "We could not create or email your signed PDF. Please try again or call +91 70325 20408.";
     submitButton.disabled = false;
   }
