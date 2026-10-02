@@ -435,6 +435,205 @@ textarea {
   cursor: pointer;
 }
 
+.agreement-page {
+  background:
+    radial-gradient(ellipse at 92% 8%, rgba(43, 107, 106, 0.1), transparent 28rem),
+    var(--paper);
+}
+
+.agreement-nav {
+  min-height: 4.25rem;
+}
+
+.agreement-home {
+  color: var(--leaf);
+  font-weight: 600;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.agreement-main {
+  padding: 3rem 0 5rem;
+}
+
+.agreement-wrap {
+  max-width: 860px;
+}
+
+.agreement-intro {
+  padding: 1rem 0 2.5rem;
+  border-bottom: 1px solid rgba(27, 36, 24, 0.15);
+}
+
+.agreement-intro h1 {
+  max-width: 700px;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+}
+
+.agreement-lede {
+  max-width: 46rem;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.agreement-alert {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid var(--terracotta);
+  background: rgba(184, 90, 42, 0.09);
+}
+
+.rules-section {
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(27, 36, 24, 0.13);
+}
+
+.rules-section > h2,
+.responsibility-note h2,
+.agreement-sign h2 {
+  font-size: 1.7rem;
+  margin: 0 0 1rem;
+}
+
+.rule-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1.5rem;
+}
+
+.rule-list-compact {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.rule {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.7rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(27, 36, 24, 0.1);
+}
+
+.rule-number,
+.rule-mark {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--sand);
+  color: var(--leaf);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.rule-critical .rule-number {
+  background: #f3d9cf;
+  color: var(--terracotta-dark);
+}
+
+.rule h3 {
+  margin: 0 0 0.35rem;
+  font-family: Outfit, system-ui, sans-serif;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.rule p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.responsibility-note {
+  margin: 2rem 0 3rem;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid rgba(47, 74, 50, 0.24);
+  background: rgba(255, 252, 247, 0.62);
+}
+
+.responsibility-note p:last-child {
+  margin-bottom: 0;
+}
+
+.agreement-sign {
+  padding-top: 1rem;
+  scroll-margin-top: 5rem;
+}
+
+.agreement-form {
+  margin-top: 1.5rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid rgba(27, 36, 24, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 12px 32px rgba(27, 36, 24, 0.08);
+}
+
+.agreement-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.agreement-form input:not([type="checkbox"]) {
+  width: 100%;
+  min-width: 0;
+}
+
+.signature-field {
+  grid-column: 1 / -1;
+}
+
+.agreement-consents {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0.5rem 0 0;
+  padding: 1rem;
+  border: 1px solid rgba(27, 36, 24, 0.15);
+}
+
+.agreement-consents legend {
+  padding: 0 0.4rem;
+  font-weight: 600;
+}
+
+.consent {
+  display: grid;
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+
+.consent input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0.2rem 0 0;
+  accent-color: var(--leaf);
+}
+
+.signature-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.agreement-form .btn {
+  justify-self: start;
+  border-radius: 0.35rem;
+}
+
+.agreement-form .btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.agreement-page .site-footer a {
+  color: #f0d7b8;
+}
+
 @media (max-width: 900px) {
   .nav-toggle {
     display: inline-flex;
@@ -473,10 +672,31 @@ textarea {
   .footer-grid {
     flex-direction: column;
   }
+
+  .rule-list {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }
 
 @media (max-width: 600px) {
   .cards {
     grid-template-columns: 1fr;
+  }
+
+  .agreement-main {
+    padding-top: 1.5rem;
+  }
+
+  .agreement-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .signature-field {
+    grid-column: auto;
+  }
+
+  .agreement-form .btn {
+    width: 100%;
   }
 }

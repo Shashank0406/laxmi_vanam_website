@@ -26,6 +26,10 @@ The enquiry form sends booking details to `laxmifarmstays@gmail.com` through For
 
 The contact section lists the primary phone as +91 70325 20408 and the alternate mobile as +91 70750 50408.
 
+## Guest agreement
+
+Guests can read the rules and submit their booking details and typed-name acknowledgement at `https://laxmivanam.in/guest-agreement.html`. Submissions are emailed to `laxmifarmstays@gmail.com` through FormSubmit with a generated PDF of the rules and signed guest details attached. The first submission may require confirming the recipient address with FormSubmit; submitted records are kept in that email inbox and are not stored by this static website.
+
 ## Photos and branding
 
 - The homepage cover image is `src/Cover.PNG`.
